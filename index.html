@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <button id="theme-toggle" class="theme-toggle">
+        <span class="material-icons">dark_mode</span>
+    </button>
     <div class="chatbot-popup">
         <div class="chat-header">
             <div class="header-info">
@@ -101,6 +104,95 @@
         }
     });
 });</script>
+
+<style>
+    /* ძირითადი სტილი */
+body {
+    transition: background 0.3s ease-in-out;
+}
+
+/* დარკ თემა */
+body.dark-mode {
+    background: linear-gradient(#222, #111);
+    color: #fff;
+}
+
+body.dark-mode .chatbot-popup {
+    background: #333;
+    box-shadow: 0 0 128px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .chat-header {
+    background: #444;
+}
+
+body.dark-mode .message-text {
+    background: #555;
+    color: #fff;
+}
+
+body.dark-mode .chat-footer {
+    background: #333;
+}
+
+body.dark-mode .chat-form {
+    background: #444;
+    outline: 1px solid #777;
+}
+
+body.dark-mode .chat-form:focus-within {
+    outline: 2px solid #999;
+}
+
+/* თემის შეცვლის ღილაკი */
+.theme-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #eee;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+body.dark-mode .theme-toggle {
+    background: #555;
+}
+
+.theme-toggle span {
+    font-size: 24px;
+}
+
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const themeToggle = document.getElementById("theme-toggle");
+    const body = document.body;
+
+    // ინახავს თემის მდგომარეობას
+    if (localStorage.getItem("theme") === "dark") {
+        body.classList.add("dark-mode");
+        themeToggle.innerHTML = '<span class="material-icons">light_mode</span>';
+    }
+
+    themeToggle.addEventListener("click", function () {
+        body.classList.toggle("dark-mode");
+
+        // ინახავს მომხმარებლის არჩევანს
+        if (body.classList.contains("dark-mode")) {
+            localStorage.setItem("theme", "dark");
+            themeToggle.innerHTML = '<span class="material-icons">light_mode</span>';
+        } else {
+            localStorage.setItem("theme", "light");
+            themeToggle.innerHTML = '<span class="material-icons">dark_mode</span>';
+        }
+    });
+});
+
+</script>
 </html>
 
 
